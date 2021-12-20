@@ -6,18 +6,20 @@ export default function Header() {
   return (
     <Background>
       <Container>
-        <NavList>
-          <NavLink to="/" className={({ isActive }) => (isActive ? 'activeLink' : 'link')}>
-            Home
-          </NavLink>
-          <NavLink to="/movies" className={({ isActive }) => (isActive ? 'activeLink' : 'link')}>
-            Movies
-          </NavLink>
-          <NavLink to="/library" className={({ isActive }) => (isActive ? 'activeLink' : 'link')}>
-            My library
-          </NavLink>
-        </NavList>
-        <Logo>Movie base</Logo>
+        <header>
+          <NavList>
+            <NavLink to="/" className={({ isActive }) => (isActive ? 'activeLink' : 'link')}>
+              Home
+            </NavLink>
+            <NavLink to="/movies" className={({ isActive }) => (isActive ? 'activeLink' : 'link')}>
+              Movies
+            </NavLink>
+            <NavLink to="/library" className={({ isActive }) => (isActive ? 'activeLink' : 'link')}>
+              My library
+            </NavLink>
+          </NavList>
+          <Logo>Movie base</Logo>
+        </header>
       </Container>
     </Background>
   );

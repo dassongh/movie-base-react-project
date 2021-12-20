@@ -3,13 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
+import theme from './services/theme';
 import './index.css';
-
-const theme = {
-  colors: {
-    primaryText: '#3B3B3B',
-  },
-};
 
 ReactDOM.render(
   <React.StrictMode>

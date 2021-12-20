@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Background = styled.div`
-  background-image: url('../../../images/homeBg.png');
+  background-image: url('../../../images/headerBg.jpg');
   background-size: cover;
   padding: 10px 0;
 `;
@@ -11,7 +11,7 @@ export const NavList = styled.nav`
   display: flex;
   justify-content: flex-end;
   margin-top: 0;
-  margin-bottom: 73px;
+  margin-bottom: 75px;
   padding: 0;
   font-size: 12px;
 `;
