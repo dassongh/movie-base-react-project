@@ -1,6 +1,7 @@
 import Container from '../../components/Container/Container';
 import MovieCast from '../../components/MovieCast/MovieCast';
 import SimilarMovies from '../../components/SimilarMovies/SimilarMovies';
+import ToggleBtn from '../../components/ToggleBtn/ToggleBtn';
 import { FiArrowLeft, FiPlus, FiX } from 'react-icons/fi';
 import { fetchById } from '../../services/fetchMovies';
 import { useState, useEffect } from 'react';
@@ -20,6 +21,8 @@ import {
   Wrapper,
   OpenBtn,
   FlexWrapper,
+  BtnsList,
+  BtnsItem,
 } from './MovieDetailsView.styled';
 
 export default function MovieDetalisView() {
@@ -27,11 +30,9 @@ export default function MovieDetalisView() {
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieCast, setMovieCast] = useState(false);
   const [similarMovies, setSimilarMovies] = useState(false);
+  const [movieVault, setMovieVault] = useState(false);
+  const [movieQueue, setMovieQueue] = useState(false);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-
-  // });
 
   useEffect(() => {
     fetchById(movieId).then(response => setMovieDetails(response));
@@ -41,6 +42,18 @@ export default function MovieDetalisView() {
       setSimilarMovies(false);
     };
   }, [movieId]);
+
+  useEffect(() => {
+    const moviesId = [];
+
+    if (movieVault) {
+      window.localStorage.setItem('movieVault', movieId);
+    } else {
+      if (JSON.parse(window.localStorage.getItem('movieVault')) === movieId) {
+        window.localStorage.removeItem('movieVault', movieId);
+      }
+    }
+  });
 
   return (
     <main>
@@ -90,10 +103,24 @@ export default function MovieDetalisView() {
               <Overview>{movieDetails.overview}</Overview>
             </Wrapper>
 
-            <Wrapper>
-              <button>Add to watched</button>
-              <button>Add to queue</button>
-            </Wrapper>
+            <BtnsList>
+              <BtnsItem>
+                <ToggleBtn
+                  value={movieVault ? 'Remove from watched' : 'Add to watched'}
+                  size={'big'}
+                  isActive={movieVault ? true : false}
+                  onClick={() => setMovieVault(prevState => !prevState)}
+                />
+              </BtnsItem>
+              <BtnsItem>
+                <ToggleBtn
+                  value={movieQueue ? 'Remove from queue' : 'Add to queue'}
+                  size={'big'}
+                  isActive={movieQueue ? true : false}
+                  onClick={() => setMovieQueue(prevState => !prevState)}
+                />
+              </BtnsItem>
+            </BtnsList>
 
             <Wrapper>
               <FlexWrapper>

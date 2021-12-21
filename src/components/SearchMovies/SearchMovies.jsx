@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 import { fetchByName } from '../../services/fetchMovies';
 import { useState, useEffect } from 'react';
 import { MovieList } from '../TrendingMoviesList/TrendingMoviesList.styled';
-import { Form, Input, SearchBtn } from './SearchMovies.styled';
+import { Form, Input, SearchBtn, Plug } from './SearchMovies.styled';
 
 export default function SearchMovies() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,7 +43,7 @@ export default function SearchMovies() {
             );
           })
         ) : (
-          <div></div>
+          <Plug></Plug>
         )}
       </MovieList>
     </>

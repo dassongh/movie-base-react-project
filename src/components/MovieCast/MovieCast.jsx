@@ -25,7 +25,7 @@ export default function MovieCast({ movieId }) {
                   src={
                     el.profile_path
                       ? `https://www.themoviedb.org/t/p/w1280${el.profile_path}`
-                      : 'http://dummyimage.com/160'
+                      : '../../../../images/dummyImage.jpg'
                   }
                   alt=""
                 />

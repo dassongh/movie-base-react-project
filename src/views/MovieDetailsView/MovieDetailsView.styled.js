@@ -110,3 +110,12 @@ export const FlexWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const BtnsList = styled.ul`
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 20px 0;
+  justify-content: space-evenly;
+`;
+export const BtnsItem = styled.li``;

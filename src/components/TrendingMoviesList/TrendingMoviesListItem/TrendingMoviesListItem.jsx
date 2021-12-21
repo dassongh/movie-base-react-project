@@ -7,10 +7,13 @@ export default function TrendingMoviesListItem({ id, date, title, poster }) {
     <MovieItem>
       <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }}>
         <ImgThumb>
-          <img src={`https://www.themoviedb.org/t/p/w1280${poster}`} alt={title} />
+          <img
+            src={poster ? `https://www.themoviedb.org/t/p/w1280${poster}` : '../../../../images/dummyImage.jpg'}
+            alt={title}
+          />
         </ImgThumb>
         <MovieTitle>
-          {title} |<span> {date.slice(0, 4)}</span>
+          {title} |<span> {date ? date.slice(0, 4) : '???'}</span>
         </MovieTitle>
       </Link>
     </MovieItem>
@@ -18,7 +21,7 @@ export default function TrendingMoviesListItem({ id, date, title, poster }) {
 }
 
 TrendingMoviesListItem.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.string,
   id: PropTypes.number.isRequired,
   poster: PropTypes.string,
   title: PropTypes.string.isRequired,
