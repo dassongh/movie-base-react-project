@@ -32,6 +32,7 @@ export const SearchBtn = styled.button`
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   color: ${props => props.theme.colors.primaryText};
+  cursor: pointer;
 `;
 
 export const Plug = styled.div`

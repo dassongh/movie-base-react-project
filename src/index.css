@@ -26,3 +26,11 @@ img {
   color: #3b3b3b;
   margin-left: 15px;
 }
+
+.Loader {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: 200px;
+  margin-bottom: 300px;
+}

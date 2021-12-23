@@ -1,6 +1,7 @@
 import Container from '../../components/Container/Container';
 import MovieCast from '../../components/MovieCast/MovieCast';
 import SimilarMovies from '../../components/SimilarMovies/SimilarMovies';
+import Loader from 'react-loader-spinner';
 import ToggleBtn from '../../components/ToggleBtn/ToggleBtn';
 import { FiArrowLeft, FiPlus, FiX } from 'react-icons/fi';
 import { fetchById } from '../../services/fetchMovies';
@@ -24,6 +25,7 @@ import {
   BtnsList,
   BtnsItem,
 } from './MovieDetailsView.styled';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 export default function MovieDetalisView() {
   const { movieId } = useParams();
@@ -32,13 +34,17 @@ export default function MovieDetalisView() {
   const [similarMovies, setSimilarMovies] = useState(false);
   const [movieVault, setMovieVault] = useState(false);
   const [movieQueue, setMovieQueue] = useState(false);
+  const [isPending, setPending] = useState(false);
   const navigate = useNavigate();
 
   const savedMovies = JSON.parse(window.localStorage.getItem('movieVault'));
   const queueMovies = JSON.parse(window.localStorage.getItem('movieQueue'));
 
   useEffect(() => {
-    fetchById(movieId).then(response => setMovieDetails(response));
+    setPending(true);
+    fetchById(movieId)
+      .then(response => setMovieDetails(response))
+      .finally(() => setPending(false));
 
     return () => {
       setMovieCast(false);
@@ -131,6 +137,8 @@ export default function MovieDetalisView() {
 
   return (
     <main>
+      {isPending && <Loader type="Puff" color="#C4C4C4" height={80} width={80} className="Loader" />}
+
       {movieDetails && (
         <>
           <Backdrop
@@ -221,83 +229,3 @@ export default function MovieDetalisView() {
     </main>
   );
 }
-
-//  useEffect(() => {
-//    if (savedMovies && savedMovies.includes(movieId)) setMovieVault(true);
-//  }, []);
-
-//  useEffect(() => {
-//  if (movieVault) {
-//    if (savedMovies && !savedMovies.includes(movieId)) {
-//      window.localStorage.setItem(
-//        'movieVault',
-//        JSON.stringify([
-//          ...savedMovies,
-//          {
-//            original_title: movieDetails.original_title,
-//            id: movieDetails.id,
-//            release_date: movieDetails.release_date,
-//            poster_path: movieDetails.poster_path,
-//          },
-//        ]),
-//      );
-//    } else if (!savedMovies) {
-//      window.localStorage.setItem(
-//        'movieVault',
-//        JSON.stringify([
-//          {
-//            original_title: movieDetails.original_title,
-//            id: movieDetails.id,
-//            release_date: movieDetails.release_date,
-//            poster_path: movieDetails.poster_path,
-//          },
-//        ]),
-//      );
-//    }
-//    }
-
-//  if (!movieVault && savedMovies) {
-//    const refreshedVault = savedMovies.filter(el => el !== movieId);
-//    window.localStorage.setItem('movieVault', JSON.stringify([...refreshedVault]));
-//  }
-//  }, [movieVault, movieId, savedMovies]);
-
-//  useEffect(() => {
-//    if (queueMovies && queueMovies.includes(movieId)) setMovieVault(true);
-//  }, []);
-
-//  useEffect(() => {
-//    if (movieQueue) {
-//      if (queueMovies && !queueMovies.includes(movieId)) {
-//        window.localStorage.setItem(
-//          'movieQueue',
-//          JSON.stringify([
-//            ...queueMovies,
-//            {
-//              original_title: movieDetails.original_title,
-//              id: movieDetails.id,
-//              release_date: movieDetails.release_date,
-//              poster_path: movieDetails.poster_path,
-//            },
-//          ]),
-//        );
-//      } else if (!queueMovies) {
-//        window.localStorage.setItem(
-//          'movieQueue',
-//          JSON.stringify([
-//            {
-//              original_title: movieDetails.original_title,
-//              id: movieDetails.id,
-//              release_date: movieDetails.release_date,
-//              poster_path: movieDetails.poster_path,
-//            },
-//          ]),
-//        );
-//      }
-//    }
-
-//    if (!movieQueue && queueMovies) {
-//      const refreshedQueue = queueMovies.filter(el => el !== movieId);
-//      window.localStorage.setItem('movieQueue', JSON.stringify([...refreshedQueue]));
-//    }
-//  }, [movieQueue, movieId, queueMovies]);
