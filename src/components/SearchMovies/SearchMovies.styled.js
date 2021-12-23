@@ -36,4 +36,8 @@ export const SearchBtn = styled.button`
 
 export const Plug = styled.div`
   margin-top: 400px;
+
+  @media screen and (min-width: 1024px) {
+    margin-top: 450px;
+  }
 `;

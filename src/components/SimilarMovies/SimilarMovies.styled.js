@@ -7,4 +7,9 @@ export const MovieList = styled.ul`
   padding: 0;
   margin: -10px;
   margin-top: 10px;
+
+  @media screen and (min-width: 1024px) {
+    margin: -15px;
+    margin-top: 10px;
+  }
 `;

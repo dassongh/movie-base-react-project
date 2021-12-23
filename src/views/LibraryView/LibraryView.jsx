@@ -1,5 +1,6 @@
 import ToggleBtn from '../../components/ToggleBtn/ToggleBtn';
 import Container from '../../components/Container/Container';
+import VaultMovieList from '../../components/VaultMovieList/VaultMovieList';
 import { useState } from 'react';
 import { MainSection } from '../HomeView/HomeView.styled';
 import { Text, BtnsList, BtnsItem } from './LibraryView.styled';
@@ -28,7 +29,8 @@ export default function LibraryView() {
             />
           </BtnsItem>
         </BtnsList>
-        <Text>Empty</Text>
+        {activeView === 'Watched' && <VaultMovieList from={'Vault'} />}
+        {activeView === 'Queue' && <VaultMovieList from={'Queue'} />}
       </Container>
     </MainSection>
   );

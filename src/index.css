@@ -18,6 +18,10 @@ img {
   margin-left: 15px;
 }
 
+.link:hover {
+  text-decoration: underline;
+}
+
 .activeLink {
   color: #3b3b3b;
   margin-left: 15px;

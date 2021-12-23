@@ -12,6 +12,16 @@ export const Backdrop = styled.div`
 export const Poster = styled.div`
   height: 210px;
   width: 140px;
+  border-radius: 5px;
+
+  & > img {
+    border-radius: 5px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    height: 360px;
+    width: 240px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -22,6 +32,11 @@ export const Title = styled.h1`
   margin-top: 5px;
   margin-bottom: 0;
   line-height: 1.6;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 10px;
+    font-size: 16px;
+  }
 `;
 
 export const Genres = styled.p`
@@ -32,11 +47,18 @@ export const Genres = styled.p`
   text-transform: uppercase;
   margin-top: 0;
   margin-bottom: 0;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 
 export const RaitingThumb = styled.div`
   height: 20px;
   background-color: ${props => props.theme.colors.secondary};
+  @media screen and (min-width: 1024px) {
+    height: 25px;
+  }
 `;
 
 export const Raiting = styled.p`
@@ -46,6 +68,10 @@ export const Raiting = styled.p`
   font-weight: 400;
   line-height: 1.58;
   color: ${props => props.theme.colors.additionalText};
+
+  @media screen and (min-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -61,6 +87,10 @@ export const Tagline = styled.h2`
   margin-top: 0;
   margin-bottom: 0;
   text-transform: uppercase;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 
 export const Heading = styled.h3`
@@ -70,6 +100,10 @@ export const Heading = styled.h3`
   line-height: 1.57;
   margin-top: 5px;
   margin-bottom: 0;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 
 export const Overview = styled.p`
@@ -79,6 +113,10 @@ export const Overview = styled.p`
   margin-top: 0;
   margin-bottom: 0;
   color: ${props => props.theme.colors.primaryText};
+
+  @media screen and (min-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 
 export const NavigateBtn = styled.button`
@@ -94,6 +132,11 @@ export const NavigateBtn = styled.button`
   margin-bottom: 160px;
   margin-left: auto;
   cursor: pointer;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
+
+  @media screen and (min-width: 1024px) {
+    margin-bottom: 130px;
+  }
 `;
 
 export const OpenBtn = styled.button`
@@ -117,5 +160,13 @@ export const BtnsList = styled.ul`
   padding: 0;
   margin: 20px 0;
   justify-content: space-evenly;
+
+  @media screen and (min-width: 768px) {
+    justify-content: center;
+  }
 `;
-export const BtnsItem = styled.li``;
+export const BtnsItem = styled.li`
+  @media screen and (min-width: 768px) {
+    margin: 0 10px;
+  }
+`;

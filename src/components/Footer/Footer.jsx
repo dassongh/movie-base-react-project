@@ -7,7 +7,7 @@ export default function Footer() {
       <Container>
         <footer>
           <FooterText>
-            © 2021 | All Rights Reserved | Developed by
+            © 2021 | Made with tMDB | Developed by
             <a href="https://www.linkedin.com/in/alexander-salnykov/"> Alexander Salnykov</a>
           </FooterText>
         </footer>

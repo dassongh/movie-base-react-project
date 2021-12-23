@@ -34,26 +34,100 @@ export default function MovieDetalisView() {
   const [movieQueue, setMovieQueue] = useState(false);
   const navigate = useNavigate();
 
+  const savedMovies = JSON.parse(window.localStorage.getItem('movieVault'));
+  const queueMovies = JSON.parse(window.localStorage.getItem('movieQueue'));
+
   useEffect(() => {
     fetchById(movieId).then(response => setMovieDetails(response));
 
     return () => {
       setMovieCast(false);
       setSimilarMovies(false);
+      setMovieVault(false);
+      setMovieQueue(false);
     };
   }, [movieId]);
 
   useEffect(() => {
-    const moviesId = [];
+    if (savedMovies && savedMovies.find(el => el.id === Number(movieId))) setMovieVault(true);
+    if (queueMovies && queueMovies.find(el => el.id === Number(movieId))) setMovieQueue(true);
+  }, [movieId, savedMovies, queueMovies]);
 
-    if (movieVault) {
-      window.localStorage.setItem('movieVault', movieId);
-    } else {
-      if (JSON.parse(window.localStorage.getItem('movieVault')) === movieId) {
-        window.localStorage.removeItem('movieVault', movieId);
+  const watchedBtnHandler = () => {
+    if (!movieVault) {
+      setMovieVault(true);
+      if (savedMovies && !savedMovies.includes(movieId)) {
+        window.localStorage.setItem(
+          'movieVault',
+          JSON.stringify([
+            ...savedMovies,
+            {
+              original_title: movieDetails.original_title,
+              id: movieDetails.id,
+              release_date: movieDetails.release_date,
+              poster_path: movieDetails.poster_path,
+            },
+          ]),
+        );
+      } else if (!savedMovies) {
+        window.localStorage.setItem(
+          'movieVault',
+          JSON.stringify([
+            {
+              original_title: movieDetails.original_title,
+              id: movieDetails.id,
+              release_date: movieDetails.release_date,
+              poster_path: movieDetails.poster_path,
+            },
+          ]),
+        );
       }
     }
-  });
+
+    if (movieVault) {
+      setMovieVault(false);
+      const refreshedVault = savedMovies.filter(el => el.id !== Number(movieId));
+      window.localStorage.setItem('movieVault', JSON.stringify([...refreshedVault]));
+    }
+  };
+
+  const queueBtnHandler = () => {
+    if (!movieQueue) {
+      setMovieQueue(true);
+      if (queueMovies && !queueMovies.includes(movieId)) {
+        window.localStorage.setItem(
+          'movieQueue',
+          JSON.stringify([
+            ...queueMovies,
+            {
+              original_title: movieDetails.original_title,
+              id: movieDetails.id,
+              release_date: movieDetails.release_date,
+              poster_path: movieDetails.poster_path,
+            },
+          ]),
+        );
+      } else if (!queueMovies) {
+        window.localStorage.setItem(
+          'movieQueue',
+          JSON.stringify([
+            {
+              original_title: movieDetails.original_title,
+              id: movieDetails.id,
+              release_date: movieDetails.release_date,
+              poster_path: movieDetails.poster_path,
+            },
+          ]),
+        );
+      }
+    }
+
+    if (movieQueue) {
+      setMovieQueue(false);
+      const refreshedQueue = queueMovies.filter(el => el.id !== Number(movieId));
+      window.localStorage.setItem('movieQueue', JSON.stringify([...refreshedQueue]));
+    }
+  };
 
   return (
     <main>
@@ -109,7 +183,7 @@ export default function MovieDetalisView() {
                   value={movieVault ? 'Remove from watched' : 'Add to watched'}
                   size={'big'}
                   isActive={movieVault ? true : false}
-                  onClick={() => setMovieVault(prevState => !prevState)}
+                  onClick={watchedBtnHandler}
                 />
               </BtnsItem>
               <BtnsItem>
@@ -117,7 +191,7 @@ export default function MovieDetalisView() {
                   value={movieQueue ? 'Remove from queue' : 'Add to queue'}
                   size={'big'}
                   isActive={movieQueue ? true : false}
-                  onClick={() => setMovieQueue(prevState => !prevState)}
+                  onClick={queueBtnHandler}
                 />
               </BtnsItem>
             </BtnsList>
@@ -147,3 +221,83 @@ export default function MovieDetalisView() {
     </main>
   );
 }
+
+//  useEffect(() => {
+//    if (savedMovies && savedMovies.includes(movieId)) setMovieVault(true);
+//  }, []);
+
+//  useEffect(() => {
+//  if (movieVault) {
+//    if (savedMovies && !savedMovies.includes(movieId)) {
+//      window.localStorage.setItem(
+//        'movieVault',
+//        JSON.stringify([
+//          ...savedMovies,
+//          {
+//            original_title: movieDetails.original_title,
+//            id: movieDetails.id,
+//            release_date: movieDetails.release_date,
+//            poster_path: movieDetails.poster_path,
+//          },
+//        ]),
+//      );
+//    } else if (!savedMovies) {
+//      window.localStorage.setItem(
+//        'movieVault',
+//        JSON.stringify([
+//          {
+//            original_title: movieDetails.original_title,
+//            id: movieDetails.id,
+//            release_date: movieDetails.release_date,
+//            poster_path: movieDetails.poster_path,
+//          },
+//        ]),
+//      );
+//    }
+//    }
+
+//  if (!movieVault && savedMovies) {
+//    const refreshedVault = savedMovies.filter(el => el !== movieId);
+//    window.localStorage.setItem('movieVault', JSON.stringify([...refreshedVault]));
+//  }
+//  }, [movieVault, movieId, savedMovies]);
+
+//  useEffect(() => {
+//    if (queueMovies && queueMovies.includes(movieId)) setMovieVault(true);
+//  }, []);
+
+//  useEffect(() => {
+//    if (movieQueue) {
+//      if (queueMovies && !queueMovies.includes(movieId)) {
+//        window.localStorage.setItem(
+//          'movieQueue',
+//          JSON.stringify([
+//            ...queueMovies,
+//            {
+//              original_title: movieDetails.original_title,
+//              id: movieDetails.id,
+//              release_date: movieDetails.release_date,
+//              poster_path: movieDetails.poster_path,
+//            },
+//          ]),
+//        );
+//      } else if (!queueMovies) {
+//        window.localStorage.setItem(
+//          'movieQueue',
+//          JSON.stringify([
+//            {
+//              original_title: movieDetails.original_title,
+//              id: movieDetails.id,
+//              release_date: movieDetails.release_date,
+//              poster_path: movieDetails.poster_path,
+//            },
+//          ]),
+//        );
+//      }
+//    }
+
+//    if (!movieQueue && queueMovies) {
+//      const refreshedQueue = queueMovies.filter(el => el !== movieId);
+//      window.localStorage.setItem('movieQueue', JSON.stringify([...refreshedQueue]));
+//    }
+//  }, [movieQueue, movieId, queueMovies]);
