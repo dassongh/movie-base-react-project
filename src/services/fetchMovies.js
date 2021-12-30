@@ -27,3 +27,9 @@ export async function fetchSimilar(id) {
     `https://api.themoviedb.org/3/movie/${id}/similar?api_key=0fbf6f1a4cbaabd00dcc7bb0f87f0a26&language=en-US&page=1`,
   ).then(response => response.json());
 }
+
+export async function fetchVideos(id) {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/videos?api_key=0fbf6f1a4cbaabd00dcc7bb0f87f0a26&language=en-US`,
+  ).then(response => response.json());
+}

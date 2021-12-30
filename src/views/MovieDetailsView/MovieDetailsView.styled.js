@@ -161,6 +161,12 @@ export const BtnsList = styled.ul`
   margin: 20px 0;
   justify-content: space-evenly;
 
+  @media screen and (max-width: 767px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 10px;
+  }
+
   @media screen and (min-width: 768px) {
     justify-content: center;
   }

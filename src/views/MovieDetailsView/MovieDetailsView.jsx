@@ -1,6 +1,7 @@
 import Container from '../../components/Container/Container';
 import MovieCast from '../../components/MovieCast/MovieCast';
 import SimilarMovies from '../../components/SimilarMovies/SimilarMovies';
+import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 import Loader from 'react-loader-spinner';
 import ToggleBtn from '../../components/ToggleBtn/ToggleBtn';
 import { FiArrowLeft, FiPlus, FiX } from 'react-icons/fi';
@@ -35,6 +36,7 @@ export default function MovieDetalisView() {
   const [movieVault, setMovieVault] = useState(false);
   const [movieQueue, setMovieQueue] = useState(false);
   const [isPending, setPending] = useState(false);
+  const [player, setPlayer] = useState(false);
   const navigate = useNavigate();
 
   const savedMovies = JSON.parse(window.localStorage.getItem('movieVault'));
@@ -59,9 +61,22 @@ export default function MovieDetalisView() {
     if (queueMovies && queueMovies.find(el => el.id === Number(movieId))) setMovieQueue(true);
   }, [movieId, savedMovies, queueMovies]);
 
+  const playerBtnHandler = () => {
+    setPlayer(true);
+    window.addEventListener('keydown', closePlayerMethods);
+  };
+
+  const closePlayerMethods = e => {
+    if (e.currentTarget === e.target) setPlayer(false);
+    if (e.code === 'Escape') setPlayer(false);
+
+    window.removeEventListener('keydown', closePlayerMethods);
+  };
+
   const watchedBtnHandler = () => {
     if (!movieVault) {
       setMovieVault(true);
+
       if (savedMovies && !savedMovies.includes(movieId)) {
         window.localStorage.setItem(
           'movieVault',
@@ -100,6 +115,7 @@ export default function MovieDetalisView() {
   const queueBtnHandler = () => {
     if (!movieQueue) {
       setMovieQueue(true);
+
       if (queueMovies && !queueMovies.includes(movieId)) {
         window.localStorage.setItem(
           'movieQueue',
@@ -149,6 +165,7 @@ export default function MovieDetalisView() {
             }
           >
             <Container>
+              {player && <VideoPlayer movieId={movieId} onClick={closePlayerMethods} />}
               <div>
                 <NavigateBtn type="button" onClick={() => navigate(-1)}>
                   <FiArrowLeft />
@@ -186,6 +203,9 @@ export default function MovieDetalisView() {
             </Wrapper>
 
             <BtnsList>
+              <BtnsItem>
+                <ToggleBtn value={'Watch trailer'} size={'big'} onClick={playerBtnHandler} />
+              </BtnsItem>
               <BtnsItem>
                 <ToggleBtn
                   value={movieVault ? 'Remove from watched' : 'Add to watched'}
