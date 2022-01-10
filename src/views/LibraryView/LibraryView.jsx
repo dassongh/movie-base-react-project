@@ -8,29 +8,32 @@ import { Text, BtnsList, BtnsItem } from './LibraryView.styled';
 export default function LibraryView() {
   const [activeView, setActiveView] = useState('Watched');
 
+  const WATCHED = 'Watched';
+  const QUEUE = 'Queue';
+  const SMALL = 'small';
+
+  const btns = [
+    { value: WATCHED, size: SMALL },
+    { value: QUEUE, size: SMALL },
+  ];
+
   return (
     <MainSection>
       <Container>
         <BtnsList>
-          <BtnsItem>
-            <ToggleBtn
-              isActive={activeView === 'Watched' ? true : false}
-              value={'Watched'}
-              onClick={() => setActiveView('Watched')}
-              size="small"
-            />
-          </BtnsItem>
-          <BtnsItem>
-            <ToggleBtn
-              isActive={activeView === 'Queue' ? true : false}
-              value={'Queue'}
-              onClick={() => setActiveView('Queue')}
-              size="small"
-            />
-          </BtnsItem>
+          {btns.map(({ value, size }) => (
+            <BtnsItem>
+              <ToggleBtn
+                isActive={activeView === value ? true : false}
+                value={value}
+                onClick={() => setActiveView(value)}
+                size={size}
+              />
+            </BtnsItem>
+          ))}
         </BtnsList>
-        {activeView === 'Watched' && <VaultMovieList from={'Vault'} />}
-        {activeView === 'Queue' && <VaultMovieList from={'Queue'} />}
+
+        <VaultMovieList from={activeView === WATCHED ? WATCHED : QUEUE} />
       </Container>
     </MainSection>
   );

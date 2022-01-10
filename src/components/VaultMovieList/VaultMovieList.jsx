@@ -7,12 +7,11 @@ export default function VaultMovieList({ from }) {
   const [movieList, setMovieList] = useState([]);
 
   useEffect(() => {
-    const vaultMoviesIds = JSON.parse(window.localStorage.getItem('movieVault'));
-    const queueMoviesIds = JSON.parse(window.localStorage.getItem('movieQueue'));
+    const vaultMoviesIds = localStorage.getItem('movieVault');
+    const queueMoviesIds = localStorage.getItem('movieQueue');
 
-    if (vaultMoviesIds && from === 'Vault') setMovieList(vaultMoviesIds);
-
-    if (queueMoviesIds && from === 'Queue') setMovieList(queueMoviesIds);
+    if (vaultMoviesIds && from === 'Watched') setMovieList(JSON.parse(vaultMoviesIds));
+    if (queueMoviesIds && from === 'Queue') setMovieList(JSON.parse(queueMoviesIds));
   }, [from]);
 
   return (
