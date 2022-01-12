@@ -176,3 +176,24 @@ export const BtnsItem = styled.li`
     margin: 0 10px;
   }
 `;
+
+export const Logo = styled.div`
+  position: absolute;
+  bottom: 150px;
+  right: 0;
+  width: 90px;
+
+  @media screen and (min-width: 768px) {
+    width: 200px;
+    bottom: 55px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 300px;
+    bottom: 60px;
+  }
+`;
+
+export const Main = styled.div`
+  position: relative;
+`;

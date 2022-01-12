@@ -25,8 +25,11 @@ import {
   FlexWrapper,
   BtnsList,
   BtnsItem,
+  Logo,
+  Main,
 } from './MovieDetailsView.styled';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { element } from 'prop-types';
 
 export default function MovieDetalisView() {
   const { movieId } = useParams();
@@ -166,7 +169,7 @@ export default function MovieDetalisView() {
           >
             <Container>
               {player && <VideoPlayer movieId={movieId} onClick={closePlayerMethods} />}
-              <div>
+              <Main>
                 <NavigateBtn type="button" onClick={() => navigate(-1)}>
                   <FiArrowLeft />
                 </NavigateBtn>
@@ -185,7 +188,17 @@ export default function MovieDetalisView() {
                     return `${el.name}, `;
                   })}
                 </Genres>
-              </div>
+                {movieDetails.production_companies.find(el => el.logo_path !== null) && (
+                  <Logo>
+                    <img
+                      src={`https://www.themoviedb.org/t/p/w500${
+                        movieDetails.production_companies.find(el => el.logo_path !== null).logo_path
+                      }`}
+                      alt=""
+                    />
+                  </Logo>
+                )}
+              </Main>
             </Container>
           </Backdrop>
 
